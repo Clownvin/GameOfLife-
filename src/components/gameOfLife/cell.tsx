@@ -13,8 +13,9 @@ export const Cell: React.FunctionComponent<Props> = ({value, onClick}) => {
   return (
     <div
       className={`cell ${value === ALIVE ? 'alive' : 'dead'}`}
-      onMouseMove={onMouseEvent}
+      // onMouseMove={onMouseEvent}
       onMouseDown={onMouseEvent}
+      onMouseEnter={onMouseEvent}
     ></div>
   );
 };

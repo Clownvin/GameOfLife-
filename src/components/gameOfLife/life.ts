@@ -1,4 +1,3 @@
-import {getRandomElement} from '../../helpers/math/getRandomElement';
 import {repeaterate} from '../../helpers/util/repeaterate';
 
 export const DEAD = 0;
@@ -22,11 +21,31 @@ const DIRECTIONS = Array.from(
 
 export function createBlankLifeState(width: number, height: number): LifeState {
   return Array.from(
-    repeaterate(height, () =>
-      Array.from(
-        repeaterate(width, () => getRandomElement([DEAD, ALIVE] as CellState[]))
-      )
-    )
+    repeaterate(height, () => Array.from(repeaterate(width, DEAD as CellState)))
+  );
+}
+
+export function resizeLifeState(
+  state: LifeState,
+  width: number,
+  height: number
+): LifeState {
+  return (
+    state.length > height
+      ? state.slice(0, height)
+      : state.concat(
+          Array.from(
+            repeaterate(height - state.length, () =>
+              Array.from(repeaterate(width, DEAD as CellState))
+            )
+          )
+        )
+  ).map(row =>
+    row.length > width
+      ? row.slice(0, width)
+      : row.concat(
+          Array.from(repeaterate(width - row.length, DEAD as CellState))
+        )
   );
 }
 
@@ -79,10 +98,11 @@ function getNeighborForDirection(
 }
 
 function wrapNumber(n: number, max: number, min = 0) {
+  const diff = max - min;
   if (n < min) {
-    return n + max;
+    return n + diff;
   } else if (n >= max) {
-    return n - max;
+    return n - diff;
   }
   return n;
 }
