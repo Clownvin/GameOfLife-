@@ -25,6 +25,14 @@ export function createBlankLifeState(width: number, height: number): LifeState {
   );
 }
 
+export function isAlive(state: CellState) {
+  return state === ALIVE;
+}
+
+export function isDead(state: CellState) {
+  return state === DEAD;
+}
+
 export function resizeLifeState(
   state: LifeState,
   width: number,

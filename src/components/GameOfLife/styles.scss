@@ -1,25 +1,15 @@
 .game-of-life-container {
   display: grid;
   grid-template: 1fr / 100vmin 1fr;
-}
-.game-of-life-grid {
-  width: 100vmin;
-  height: 100vmin;
+  justify-items: center;
+  background-color: black;
+  color: plum;
 
-  > .cell {
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -webkit-user-drag: none;
-    outline: 1px solid green;
-    &.dead {
-      background-color: black;
-    }
-    &.alive {
-      background-color: greenyellow;
-    }
+  @media screen and (max-width: 140vmin) {
+    grid-template: 100vmin 1fr / 1fr;
   }
 }
+
 .game-of-life-controls {
   display: flex;
   flex-direction: column;
@@ -33,6 +23,18 @@
     display: grid;
     grid-template-columns: 1fr 4fr;
     align-items: center;
+  }
+
+  input[type='color'] {
+    appearance: none;
+    border-image: none;
+    border: none;
+    outline: none;
+    outline-style: none;
+    width: 100%;
+    height: 100%;
+    min-height: 20px;
+    border-color: transparent;
   }
 
   section {
