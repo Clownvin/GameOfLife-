@@ -4,6 +4,7 @@
   justify-items: center;
   background-color: black;
   color: plum;
+  width: 100%;
 
   @media screen and (max-width: 140vmin) {
     grid-template: 100vmin 1fr / 1fr;

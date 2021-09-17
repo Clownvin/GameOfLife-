@@ -1,4 +1,4 @@
-import {repeaterate} from '../../helpers/util/repeaterate';
+import repeaterate from '../../helpers/util/repeaterate';
 
 export const DEAD = 0;
 export const ALIVE = 1;
@@ -55,6 +55,16 @@ export function resizeLifeState(
           Array.from(repeaterate(width - row.length, DEAD as CellState))
         )
   );
+}
+
+export function sliceLifeState(
+  state: LifeState,
+  x: number,
+  y: number,
+  width: number,
+  height: number
+) {
+  return state.slice(y, y + height).map(row => row.slice(x, x + width));
 }
 
 //Game Of Life Implementation

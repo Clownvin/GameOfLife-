@@ -1,4 +1,8 @@
 canvas.life {
   width: 100vmin;
   height: 100vmin;
+
+  @media screen and (max-width: 100vmin) {
+    width: 100%;
+  }
 }

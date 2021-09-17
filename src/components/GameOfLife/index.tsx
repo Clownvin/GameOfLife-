@@ -10,6 +10,7 @@ import './styles.scss';
 import {getRandomElement} from '../../helpers/math/getRandomElement';
 import {LifeCanvas, LifeCanvasProps} from './LifeCanvas';
 import {NumberInput} from '../NumberInput';
+import {usePausable} from '../../hooks/usePausable';
 
 type Props = {
   width?: number;
@@ -19,12 +20,12 @@ type Props = {
 
 const DEFAULT_WIDTH = 40;
 const DEFAULT_HEIGHT = 40;
-const DEFAULT_TICKRATE = 100; //1000 seconds;
+const DEFAULT_TICKRATE = 333;
 
 export const GameOfLife: React.FunctionComponent<Props> = ({
   width: initialWidth = DEFAULT_WIDTH,
   height: initialHeight = DEFAULT_HEIGHT,
-  tickRate = DEFAULT_TICKRATE,
+  tickRate: initialTickRate = DEFAULT_TICKRATE,
 }) => {
   const [[width, height], setDimensions] = useState([
     initialWidth,
@@ -32,7 +33,6 @@ export const GameOfLife: React.FunctionComponent<Props> = ({
   ]);
   const [dimensionsLinked, setDimensionsLinked] = useState(true);
   const [state, setState] = useState(createBlankLifeState(width, height));
-  const [paused, setPaused] = useState(false);
 
   const [style, setStyle] = useState<LifeCanvasProps['style']>({
     aliveColor: '#33FF00',
@@ -40,13 +40,10 @@ export const GameOfLife: React.FunctionComponent<Props> = ({
     gridColor: '#00FF00',
   });
 
-  useEffect(() => {
-    if (paused) {
-      return;
-    }
-    const timeout = setTimeout(() => setState(doLifeStep(state)), tickRate);
-    return () => clearTimeout(timeout);
-  }, [state, paused]);
+  const [paused, setPaused] = usePausable({
+    callback: () => setState(doLifeStep(state)),
+    timeout: initialTickRate,
+  });
 
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {

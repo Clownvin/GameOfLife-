@@ -1,4 +1,4 @@
-export function debounce<A extends unknown[], V>(
+export default function debounce<A extends unknown[], V>(
   callback: (...args: A) => V,
   timeout: number
 ) {

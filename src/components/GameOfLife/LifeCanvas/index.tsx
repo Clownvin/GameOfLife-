@@ -97,6 +97,7 @@ export const LifeCanvas: React.FC<LifeCanvasProps> = ({
     if (!e.buttons) {
       return;
     }
+
     const cellX = getCellX(e);
     const cellY = getCellY(e);
     if (prevMove) {
@@ -105,6 +106,7 @@ export const LifeCanvas: React.FC<LifeCanvasProps> = ({
         return;
       }
     }
+
     setPrevMove([cellX, cellY]);
     onMouseDown(e);
   }
